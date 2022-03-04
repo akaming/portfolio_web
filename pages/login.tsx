@@ -1,8 +1,9 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import styled from "styled-components"
 import axios from "axios"
 import Swal from "sweetalert2"
 import { useRouter } from "next/router"
+import { useCookies } from "react-cookie"
 
 interface User {
     email: string,
@@ -11,17 +12,30 @@ interface User {
 
 const Login = () => {
     const router = useRouter();
+    const [cookie, setCookie] = useCookies(["token"])
     const [user, setUser] = useState<User>({
         email: '',
         password: ''
     })
 
+    useEffect(() => {
+        
+        console.log(cookie)
+    }, [])
+    
+    
     const loginFrom = async(e:React.FormEvent) => {
         e.preventDefault();
-        console.log(process.env.NEXT_PUBLIC_API_URL);
         
         try {
-            await axios.post(process.env.NEXT_PUBLIC_API_URL + '/v1/auth/login', user)
+            const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/v1/auth/login', user)
+            const data = response.data
+
+            setCookie("token", data.token.token, {
+                path: "/",
+                maxAge: 3600, // 쿠키만료 1시간
+                sameSite: true
+            })
             
             Swal.fire({
                 title: '로그인',

@@ -1,6 +1,7 @@
+import { NextPageContext } from "next"
 import styled from "styled-components"
 
-const Works = (props: any) => {
+export default function Works(props: any) {
     return (
         <Container id={props.id}>
             Works
@@ -8,8 +9,10 @@ const Works = (props: any) => {
     )
 }
 
+Works.getInitialProps = async ({req, res}:NextPageContext) => {
+    
+}
+
 const Container = styled.div`
     min-height: 500px;
 `
-
-export default Works
