@@ -4,6 +4,8 @@ import axios from "axios"
 import Swal from "sweetalert2"
 import { useRouter } from "next/router"
 import { useCookies } from "react-cookie"
+import { Container } from "../src/components/Container"
+import Header from "../src/components/Header"
 
 interface User {
     email: string,
@@ -57,17 +59,63 @@ const Login = () => {
         }
     }
 
-    return( 
-        <form onSubmit={loginFrom}>
-            <Input type="email" onChange={(e) => (setUser({...user, email: e.target.value}))}/>
-            <Input type="password" onChange={(e) => (setUser({...user, password: e.target.value}))}/>
-            <button type="submit">로그인</button>
-        </form>
+    return(
+        <Container>
+            <Header />
+            <LoginWrap>
+                <LoginBox>
+                    <form onSubmit={loginFrom}>
+                        <InputGroup>
+                            <Input type="email" onChange={(e) => (setUser({...user, email: e.target.value}))} placeholder="E-mail"/>
+                            <Input type="password" onChange={(e) => (setUser({...user, password: e.target.value}))} placeholder="password"/>
+                        </InputGroup>
+                        <Button type="submit">로그인</Button>
+                    </form>
+                </LoginBox>
+            </LoginWrap>
+        </Container>
     )
 }
 
+const LoginWrap = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+`
+
+const LoginBox = styled.div`
+    width: 538px;
+    padding: 72px 84px 40px;
+    border-top: 2px solid #21A6AE;
+    background-color: #fff;
+    box-shadow: 0 3px 6px 0 #dadce1;
+`
+
+const InputGroup = styled.div`
+    position: relative;
+`
+
 const Input = styled.input`
-    border: 1px solid #000;
+    display: block;
+    width: 100%;
+    height: 64px;
+    padding-left: 20px;
+    margin-bottom: 5px;
+    box-sizing: border-box;
+    border: 1px solid #e5e5e5;
+    transition: all .1s ease-in-out;
+`
+
+const Button = styled.button`
+    width: 100%;
+    height: 62px;
+    line-height: 62px;
+    margin-top: 20px;
+    background-color: #21A6AE;
+    border-radius: 12px;
+    color: #fff;
+    font-weight: bold;
 `
 
 export default Login;

@@ -2,6 +2,7 @@ import type { NextPage, NextPageContext } from 'next'
 import styled from 'styled-components'
 import About from '../src/components/About'
 import Contact from '../src/components/Contact'
+import { Container } from '../src/components/Container'
 import Header from '../src/components/Header'
 import Works from '../src/components/Works'
 import { parseCookies } from "../src/helpers/"
@@ -11,7 +12,6 @@ export default function Home({data}:any) {
   return (
     <Container>
       <Header />
-      <p>{data.token}</p>
       <About id="about"/>
       <Works id="works"/>
       <Contact id="contact"/>
@@ -35,10 +35,4 @@ Home.getInitialProps = async ({req, res}:NextPageContext) => {
     data: data && data
   }
 }
-
-const Container = styled.div`
-  width: 1100px;
-  height: 100%;
-  margin: 0 auto;
-`
 

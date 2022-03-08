@@ -74,8 +74,8 @@ export default function Create({data}:any) {
 
     return (
         <form onSubmit={handleSubmit}>
-            <input type="text" placeholder="제목" defaultValue="1" onChange={(e) => {setBoard({...board, title: e.target.value})}}/>
-            <textarea placeholder="내용" defaultValue="2dd" onChange={(e) => {setBoard({...board, content: e.target.value})}}/>
+            <input type="text" placeholder="제목" onChange={(e) => {setBoard({...board, title: e.target.value})}}/>
+            <textarea placeholder="내용" onChange={(e) => {setBoard({...board, content: e.target.value})}}/>
             <input type="file" accept="image/png, image/jpeg, image/jpg, image/gif" onChange={handleFile} />
             <button type="submit">등록</button>
         </form>

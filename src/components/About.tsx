@@ -41,6 +41,7 @@ const About = (props: any) => {
 
 const Container = styled.div`
     display: flex;
+    padding-top: 80px;
     justify-content: space-around;
 `
 

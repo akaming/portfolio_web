@@ -28,8 +28,12 @@ const Header =() => {
 }
 
 const HeaderContainer = styled.header`
-    width: 100%;
+    position: fixed;
+    top: 0;
     padding: 30px 0;
+    max-width: 1100px;
+    width: 100%;
+    background-color: #fff;
 `
 const Nav = styled.div`
     display: flex;
