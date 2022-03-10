@@ -21,14 +21,58 @@ const Login = () => {
     })
 
     useEffect(() => {
-        
         console.log(cookie)
     }, [])
     
     
+    const validation = () => {
+        //정규식 표현
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+        //이메일 값이 없을시
+        if(!user.email) {
+            Swal.fire({
+                title: '이메일',
+                text: '이메일을 입력 해주세요.',
+                icon: 'error',
+                confirmButtonText: '확인',
+                allowOutsideClick: false,
+            })
+            return false;
+        }
+        // 이메일 정규식 어긋나는 경우
+        if(!regex.test(user.email)) {
+            Swal.fire({
+                title: '이메일',
+                text: '이메일 형식이 아닙니다.',
+                icon: 'error',
+                confirmButtonText: '확인',
+                allowOutsideClick: false,
+            })
+            return false;
+        }
+        // 비밀번호 값이 없을 경우
+        if (!user.password) {
+            Swal.fire({
+                title: '비밀번호',
+                text: '비밀번호를 입력해 주세요.',
+                icon: 'error',
+                confirmButtonText: '확인',
+                allowOutsideClick: false,
+            })
+            return false;
+        }
+        return true;
+    }
+
     const loginFrom = async(e:React.FormEvent) => {
         e.preventDefault();
         
+        const validated = !validation();
+        if (validated) {
+            return false;
+        }
+
         try {
             const response = await axios.post(process.env.NEXT_PUBLIC_API_URL + '/v1/auth/login', user)
             const data = response.data
@@ -52,10 +96,29 @@ const Login = () => {
                     })
                 }
             })
-            console.log('성공');
             
-        } catch(error) {
+        } catch(error:any) {
             console.error(error);
+            const errorCode = error?.response?.data?.code
+
+            if (errorCode == "no-user") {
+                Swal.fire({
+                    title: '회원정보 확인',
+                    text: '회원정보가 일치하지 않습니다.',
+                    icon: 'error',
+                    confirmButtonText: '확인',
+                    allowOutsideClick: false,
+                })
+            }
+            if (errorCode == "password-error") {
+                Swal.fire({
+                    title: '비밀번호 확인',
+                    text: '비밀번호가 틀렸습니다. 다시 확인해 주세요.',
+                    icon: 'error',
+                    confirmButtonText: '확인',
+                    allowOutsideClick: false,
+                })
+            }
         }
     }
 
@@ -66,7 +129,7 @@ const Login = () => {
                 <LoginBox>
                     <form onSubmit={loginFrom}>
                         <InputGroup>
-                            <Input type="email" onChange={(e) => (setUser({...user, email: e.target.value}))} placeholder="E-mail"/>
+                            <Input type="text" onChange={(e) => (setUser({...user, email: e.target.value}))} placeholder="E-mail"/>
                             <Input type="password" onChange={(e) => (setUser({...user, password: e.target.value}))} placeholder="password"/>
                         </InputGroup>
                         <Button type="submit">로그인</Button>
