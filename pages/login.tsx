@@ -19,11 +19,6 @@ const Login = () => {
         email: '',
         password: ''
     })
-
-    useEffect(() => {
-        console.log(cookie)
-    }, [])
-    
     
     const validation = () => {
         //정규식 표현
@@ -179,6 +174,7 @@ const Button = styled.button`
     border-radius: 12px;
     color: #fff;
     font-weight: bold;
+    cursor: pointer;
 `
 
 export default Login;

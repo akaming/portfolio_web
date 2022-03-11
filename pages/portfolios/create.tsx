@@ -24,11 +24,6 @@ export default function Create({data}:any) {
     const handleFile = function(e: React.ChangeEvent<HTMLInputElement>) {
         const fileList = e.target.files;
     
-        console.log("fileList",fileList);
-        console.log("board",board);
-        
-        console.log('name', fileList?.[0]?.name);
-        
         if (!fileList) return;
 
         setBoard({...board, img: fileList[0]})
@@ -41,12 +36,11 @@ export default function Create({data}:any) {
             const formData = new FormData();
             formData.append('title', board.title);
             formData.append('content', board.content);
-            console.log(board.img);
             
             if (board.img) {
                 formData.append('img', board?.img!, 'test' );
             }
-            console.log(formData);
+            
             await axios.post(process.env.NEXT_PUBLIC_API_URL + '/v1/admin/portfolios/', formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -155,4 +149,5 @@ const Button = styled.button`
     border-radius: 12px;
     color: #fff;
     font-weight: bold;
+    cursor: pointer;
 `
