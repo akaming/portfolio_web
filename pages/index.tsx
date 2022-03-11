@@ -7,8 +7,7 @@ import Header from '../src/components/Header'
 import Works from '../src/components/Works'
 import { parseCookies } from "../src/helpers/"
 
-export default function Home({data}:any) {
-  
+export default function Home() {
   return (
     <Container>
       <Header />
@@ -18,21 +17,3 @@ export default function Home({data}:any) {
     </Container>
   )
 }
-
-
-Home.getInitialProps = async ({req, res}:NextPageContext) => {
-  const data = parseCookies(req)
-  
-  if(res) {
-    if(Object.keys(data).length === 0 && data.constructor === Object) {
-      if (!data.token) {
-        res.writeHead(301, { Location: "/login" })
-        res.end()
-      }
-    }
-  }
-  return {
-    data: data && data
-  }
-}
-
