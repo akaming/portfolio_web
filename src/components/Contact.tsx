@@ -32,7 +32,7 @@ const Contact = (props: any) => {
 
 const ContactWrap = styled(Container)`
     min-height: 500px;
-    padding-bottom: 80px;
+    padding-bottom: 150px;
 `
 
 const SubTitle = styled.h3`

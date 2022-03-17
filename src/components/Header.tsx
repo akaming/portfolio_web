@@ -19,6 +19,7 @@ const Header =() => {
     return (
         <HeaderContainer>
             <Nav>
+                <Link href="#intro" passHref><NavItem onClick={moveContent}>INTRO</NavItem></Link>
                 <Link href="#about" passHref><NavItem onClick={moveContent}>ABOUT</NavItem></Link>
                 <Link href="#works" passHref><NavItem onClick={moveContent}>WORKS</NavItem></Link>
                 <Link href="#contact" passHref><NavItem onClick={moveContent}>CONTACT</NavItem></Link>
