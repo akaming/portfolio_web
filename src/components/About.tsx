@@ -1,8 +1,9 @@
 import styled from "styled-components"
+import { Container } from "./Container"
 
 const About = (props: any) => {
     return (
-        <Container id={props.id}>
+        <AboutWrap id={props.id}>
             <ProfileImg />
             <ProfileInfo>
                 <dt>Name</dt>
@@ -35,14 +36,14 @@ const About = (props: any) => {
                     </ul>
                 </dd>
             </ProfileInfo>
-        </Container>
+        </AboutWrap>
     )
 }
 
-const Container = styled.div`
+const AboutWrap = styled(Container)`
     display: flex;
-    padding-top: 80px;
     justify-content: space-around;
+    padding-top: 0;
 `
 
 const ProfileImg = styled.div`
