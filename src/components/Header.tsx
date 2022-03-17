@@ -32,7 +32,7 @@ const HeaderContainer = styled.header`
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    z-index: 1;
+    z-index: 5;
     padding: 30px 0;
     max-width: 1100px;
     width: 100%;
