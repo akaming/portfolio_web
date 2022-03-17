@@ -30,10 +30,12 @@ const Header =() => {
 const HeaderContainer = styled.header`
     position: fixed;
     top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
     padding: 30px 0;
     max-width: 1100px;
     width: 100%;
-    background-color: #fff;
 `
 const Nav = styled.div`
     display: flex;
