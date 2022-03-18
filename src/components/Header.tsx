@@ -4,7 +4,7 @@ import styled, {css} from "styled-components"
 
 const Header =() => {
     const [isScroll, setIsScroll] = useState(false);
-    const [isNavi, setIsNavi] = useState([false,false,false,false]);
+    const [isNavi, setIsNavi] = useState(0);
 
     useEffect(() => {
         window.onscroll = () => {
@@ -23,13 +23,13 @@ const Header =() => {
             }
 
             if(adjustedScroll >= contact) {
-                setIsNavi([false,false,false,true]);
+                setIsNavi(3);
             } else if (adjustedScroll >= works) {
-                setIsNavi([false,false,true,false]);
+                setIsNavi(2);
             } else if (adjustedScroll >= about) {
-                setIsNavi([false,true,false,false]);
+                setIsNavi(1);
             } else {
-                setIsNavi([false,false,false,false]);
+                setIsNavi(0);
             }
         }
     }, [])
@@ -52,10 +52,10 @@ const Header =() => {
         <HeaderWrap isScroll={isScroll}>
             <HeaderContainer>
                 <Nav>
-                    <Link href="#intro" passHref><NavItem isNavi={isNavi[0]} onClick={moveContent}>INTRO</NavItem></Link>
-                    <Link href="#about" passHref><NavItem isNavi={isNavi[1]} onClick={moveContent}>ABOUT</NavItem></Link>
-                    <Link href="#works" passHref><NavItem isNavi={isNavi[2]} onClick={moveContent}>WORKS</NavItem></Link>
-                    <Link href="#contact" passHref><NavItem isNavi={isNavi[3]} onClick={moveContent}>CONTACT</NavItem></Link>
+                    <Link href="#intro" passHref><NavItem isNavi={isNavi} naviNum={0} onClick={moveContent}>INTRO</NavItem></Link>
+                    <Link href="#about" passHref><NavItem isNavi={isNavi} naviNum={1} onClick={moveContent}>ABOUT</NavItem></Link>
+                    <Link href="#works" passHref><NavItem isNavi={isNavi} naviNum={2} onClick={moveContent}>WORKS</NavItem></Link>
+                    <Link href="#contact" passHref><NavItem isNavi={isNavi} naviNum={3} onClick={moveContent}>CONTACT</NavItem></Link>
                 </Nav>
             </HeaderContainer>
         </HeaderWrap>
@@ -87,12 +87,12 @@ const Nav = styled.div`
     justify-content: space-between;
 `
 
-const NavItem = styled.a<{isNavi: boolean}>`
+const NavItem = styled.a<{isNavi: number, naviNum: number}>`
     font-size: 12px;
     cursor: pointer;
     color: #8ea7ca;
     font-weight: bold;
-    ${props => props.isNavi && css`
+    ${props => props.isNavi === props.naviNum && css`
         color: #000;
     `}
 `
