@@ -4,16 +4,32 @@ import styled, {css} from "styled-components"
 
 const Header =() => {
     const [isScroll, setIsScroll] = useState(false);
+    const [isNavi, setIsNavi] = useState([false,false,false,false]);
 
     useEffect(() => {
         window.onscroll = () => {
             const scroll = window.pageYOffset
+            const about = document.getElementById('about')?.offsetTop || 0 ;
+            const works = document.getElementById('works')?.offsetTop || 0;
+            const contact = document.getElementById('contact')?.offsetTop || 0;
+            const adjustedScroll = scroll + window.innerHeight / 2;
+
             if(scroll > 10) {
                 setIsScroll(true);
             }
 
             if(scroll < 10) {
                 setIsScroll(false);
+            }
+
+            if(adjustedScroll >= contact) {
+                setIsNavi([false,false,false,true]);
+            } else if (adjustedScroll >= works) {
+                setIsNavi([false,false,true,false]);
+            } else if (adjustedScroll >= about) {
+                setIsNavi([false,true,false,false]);
+            } else {
+                setIsNavi([false,false,false,false]);
             }
         }
     }, [])
@@ -36,10 +52,10 @@ const Header =() => {
         <HeaderWrap isScroll={isScroll}>
             <HeaderContainer>
                 <Nav>
-                    <Link href="#intro" passHref><NavItem onClick={moveContent}>INTRO</NavItem></Link>
-                    <Link href="#about" passHref><NavItem onClick={moveContent}>ABOUT</NavItem></Link>
-                    <Link href="#works" passHref><NavItem onClick={moveContent}>WORKS</NavItem></Link>
-                    <Link href="#contact" passHref><NavItem onClick={moveContent}>CONTACT</NavItem></Link>
+                    <Link href="#intro" passHref><NavItem isNavi={isNavi[0]} onClick={moveContent}>INTRO</NavItem></Link>
+                    <Link href="#about" passHref><NavItem isNavi={isNavi[1]} onClick={moveContent}>ABOUT</NavItem></Link>
+                    <Link href="#works" passHref><NavItem isNavi={isNavi[2]} onClick={moveContent}>WORKS</NavItem></Link>
+                    <Link href="#contact" passHref><NavItem isNavi={isNavi[3]} onClick={moveContent}>CONTACT</NavItem></Link>
                 </Nav>
             </HeaderContainer>
         </HeaderWrap>
@@ -71,11 +87,14 @@ const Nav = styled.div`
     justify-content: space-between;
 `
 
-const NavItem = styled.a`
+const NavItem = styled.a<{isNavi: boolean}>`
     font-size: 12px;
     cursor: pointer;
     color: #8ea7ca;
     font-weight: bold;
+    ${props => props.isNavi && css`
+        color: #000;
+    `}
 `
 
 export default Header

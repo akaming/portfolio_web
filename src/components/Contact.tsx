@@ -1,4 +1,3 @@
-import Link from "next/link"
 import styled from "styled-components"
 import { Container } from "./Container"
 import { Title } from "./Title"
@@ -14,15 +13,15 @@ const Contact = (props: any) => {
                     <dd>경기도 수원시 권선구</dd>
                     <dt>Email</dt>
                     <dd>
-                        <Link href="mailto:myungmin.works@gmail.com">
-                            <Linkitem>myungmin.works@gmail.com</Linkitem>
-                        </Link>
+                        <Linkitem href="mailto:myungmin.works@gmail.com">myungmin.works@gmail.com</Linkitem>
+                    </dd>
+                    <dt>Git</dt>
+                    <dd>
+                        <Linkitem href="https://github.com/akaming" target="_blank">https://github.com/akaming</Linkitem>
                     </dd>
                     <dt>Blog</dt>
                     <dd>
-                        <Link href="https://myungmin.tistory.com/">
-                            <Linkitem>공부 블로그</Linkitem>
-                        </Link>
+                        <Linkitem href="https://myungmin.tistory.com/" target="_blank">공부 블로그</Linkitem>
                     </dd>
                 </Info>
             </ContactCard>
@@ -32,7 +31,8 @@ const Contact = (props: any) => {
 
 const ContactWrap = styled(Container)`
     min-height: 500px;
-    padding-bottom: 150px;
+    margin-bottom: 200px;
+    padding-top: 200px;
 `
 
 const SubTitle = styled.h3`

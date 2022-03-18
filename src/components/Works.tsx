@@ -59,6 +59,7 @@ export default Works;
 
 const WorksWrap = styled(Container)`
     text-align: center; 
+    padding-top: 200px;
 `
 
 const CardGroup = styled.div`

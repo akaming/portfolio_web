@@ -31,8 +31,8 @@ const About = (props: any) => {
                 <dd>
                     <ul>
                         <li>2020.10 ~ </li>
-                        <li>2019.08 ~ 2020.08 에스와이소프트</li>
-                        <li>2016.11 ~ 2018.04 그룹아이디디</li>
+                        <li>2019.08 ~ 2020.08 SYSOFT</li>
+                        <li>2016.11 ~ 2018.04 GroupIDD</li>
                     </ul>
                 </dd>
             </ProfileInfo>
@@ -43,7 +43,7 @@ const About = (props: any) => {
 const AboutWrap = styled(Container)`
     display: flex;
     justify-content: space-around;
-    padding-top: 0;
+    padding-top: 200px;
 `
 
 const ProfileImg = styled.div`
