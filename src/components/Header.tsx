@@ -95,6 +95,10 @@ const NavItem = styled.a<{isNavi: number, naviNum: number}>`
     ${props => props.isNavi === props.naviNum && css`
         color: #000;
     `}
+
+    ${props => props.isNavi === 0 && props.naviNum === 0 && css`
+        color: #8ea7ca;
+    `}
 `
 
 export default Header

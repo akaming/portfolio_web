@@ -1,49 +1,61 @@
 import styled from "styled-components"
 import { Container } from "./Container"
+import { Title } from "./Title"
 
 const About = (props: any) => {
     return (
         <AboutWrap id={props.id}>
-            <ProfileImg />
-            <ProfileInfo>
-                <dt>Name</dt>
-                <dd>이명민</dd>
+            <AboutTitle>About</AboutTitle>
+            <AboutInfo>
+                <ProfileImg />
+                <ProfileInfo>
+                    <dt>Name</dt>
+                    <dd>이명민</dd>
 
-                <dt>Birth</dt>
-                <dd>95.04.03</dd>
+                    <dt>Birth</dt>
+                    <dd>95.04.03</dd>
 
-                <dt>Skill</dt>
-                <dd>
-                    <ul>
-                        <li>HTML5</li>
-                        <li>CSS</li>
-                        <li>SCSS</li>
-                        <li>JavaScript</li>
-                        <li>React.js</li>
-                        <li>Next.js</li>
-                        <li>TypeScript</li>
-                        <li>Adonis.js</li>
-                        <li>Figma</li>
-                    </ul>
-                </dd>
-     
-                <dt>Company</dt>
-                <dd>
-                    <ul>
-                        <li>2020.10 ~ </li>
-                        <li>2019.08 ~ 2020.08 SYSOFT</li>
-                        <li>2016.11 ~ 2018.04 GroupIDD</li>
-                    </ul>
-                </dd>
-            </ProfileInfo>
+                    <dt>Skill</dt>
+                    <dd>
+                        <ul>
+                            <li>HTML5</li>
+                            <li>CSS</li>
+                            <li>SCSS</li>
+                            <li>JavaScript</li>
+                            <li>React.js</li>
+                            <li>Next.js</li>
+                            <li>TypeScript</li>
+                            <li>Adonis.js</li>
+                            <li>Figma</li>
+                        </ul>
+                    </dd>
+        
+                    <dt>Company</dt>
+                    <dd>
+                        <ul>
+                            <li>2020.10 ~ </li>
+                            <li>2019.08 ~ 2020.08 SYSOFT</li>
+                            <li>2016.11 ~ 2018.04 GroupIDD</li>
+                        </ul>
+                    </dd>
+                </ProfileInfo>
+            </AboutInfo>
         </AboutWrap>
     )
 }
 
 const AboutWrap = styled(Container)`
+    padding-top: 200px;
+`
+
+const AboutTitle = styled(Title)`
+    text-align: center;
+    margin-bottom: 30px;
+`
+
+const AboutInfo = styled.div`
     display: flex;
     justify-content: space-around;
-    padding-top: 200px;
 `
 
 const ProfileImg = styled.div`
