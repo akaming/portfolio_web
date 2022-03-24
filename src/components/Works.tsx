@@ -1,11 +1,12 @@
 import axios from "axios"
 import { NextPage, NextPageContext } from "next"
 import { useEffect, useState } from "react"
-import styled from "styled-components"
+import styled, {ThemeProvider} from "styled-components"
 import { Container } from "./Container"
-import { Title } from "./Title"
-
+import { SectionTitle } from "./SectionTitle"
+import theme from "../../styles/theme.js"
 interface List {
+    id: number,
     title: string,
     img: string
 } 
@@ -24,8 +25,9 @@ const Works = (props: any) => {
     
             result.data.data.map((data:any) => {
                 temp.push({
+                    id: data.id,
                     title: data.title,
-                    img: data.img
+                    img: data.img,
                 })
             })
     
@@ -37,44 +39,73 @@ const Works = (props: any) => {
     }
 
     return (
-        <WorksWrap id={props.id}>
-            <Title>Works</Title>
-            <CardGroup>
-                {
-                    list?.map((data:List) => {
-                        return (
-                            <Card>
-                                <CardImg src="https://dummyimage.com/600x400/000/fff" alt={data.title}></CardImg>
-                                <CardTitle>{data.title}</CardTitle>
-                            </Card>
-                        )
-                    })
-                }
-            </CardGroup>
-        </WorksWrap>
+        <ThemeProvider theme={theme}>
+            <WorksWrap id={props.id}>
+                <SectionTitle>WORKS</SectionTitle>
+                <CardGroup>
+                    {
+                        list?.map((data:List) => {
+                            return (
+                                <CardWrap key={data.id}>
+                                    <Card>
+                                        <CardImg src="https://dummyimage.com/600x400/000/fff" alt={data.title}></CardImg>
+                                        <CardTitle>{data.title}</CardTitle>
+                                    </Card>
+                                </CardWrap>
+                            )
+                        })
+                    }
+                </CardGroup>
+            </WorksWrap>
+        </ThemeProvider>
     )
 }
 
 export default Works;
 
 const WorksWrap = styled(Container)`
-    text-align: center; 
-    padding-top: 200px;
+    text-align: center;
+    overflow: hidden;
 `
 
 const CardGroup = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
+    flex-wrap: wrap;
     margin: 0 -30px;
+    @media ${({theme}) => theme.device.tablet} {
+        flex-direction: column;    
+        flex-wrap: nowrap;
+    }
 `
 
-const Card = styled.a`
-    margin: 30px;
+const CardWrap = styled.a`
     cursor: pointer;
+    flex-basis: 50%;
+    margin: 30px 0;
+
+    @media ${({theme}) => theme.device.tablet} {
+        flex-basis: 100%;
+        margin: 15px 0;
+    }
 `
 
-const CardImg = styled.img``
+const Card = styled.div`
+    margin: 0 30px;
+    font-size: 0;
+
+    @media ${({theme}) => theme.device.tablet} {
+        margin: 0 15px;
+    }
+`
+
+const CardImg = styled.img`
+    width: 100%;
+`
 
 const CardTitle = styled.h3`
-    margin-top: 30px;
+    padding-top: 30px;
+
+    @media ${({theme}) => theme.device.tablet} {
+        padding-top: 10px;
+    }
 `

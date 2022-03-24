@@ -1,30 +1,33 @@
-import styled, { keyframes } from "styled-components"
+import styled, { keyframes, ThemeProvider } from "styled-components"
+import theme from "../../styles/theme.js"
 
 const Intro = (props: any) => {
     return(
-        <Container id={props.id}>
-            <Stars />
-            <Stars2 />
-            <Stars3 />
-            <IntroTextBox>
-                <Text>
-                    Hello. <br/>
-                    I'm Myungmin Lee <br/>
-                    Web Front Developer
-                </Text>
-            </IntroTextBox>
-            <CloudBox>
-                <Cloud>
-                    <img src="/images/cloud_1.png" alt="구름 이미지"/>
-                </Cloud>
-                <Cloud2>
-                    <img src="/images/cloud_2.png" alt="구름 이미지"/>
-                </Cloud2>
-                <Cloud3>
-                    <img src="/images/cloud_3.png" alt="구름 이미지"/>
-                </Cloud3>
-            </CloudBox>
-        </Container>
+        <ThemeProvider theme={theme}>
+            <Container id={props.id}>
+                <Stars />
+                <Stars2 />
+                <Stars3 />
+                <IntroTextBox>
+                    <Text>
+                        Hello. <br/>
+                        I'm Myungmin Lee <br/>
+                        Web Front Developer
+                    </Text>
+                </IntroTextBox>
+                <CloudBox>
+                    <Cloud>
+                        <img src="/images/cloud_1.png" alt="구름 이미지"/>
+                    </Cloud>
+                    <Cloud2>
+                        <img src="/images/cloud_2.png" alt="구름 이미지"/>
+                    </Cloud2>
+                    <Cloud3>
+                        <img src="/images/cloud_3.png" alt="구름 이미지"/>
+                    </Cloud3>
+                </CloudBox>
+            </Container>
+        </ThemeProvider>
     )
 }
 
@@ -43,8 +46,9 @@ const IntroTextBox = styled.div`
     flex-direction: column;
     justify-content: center;
     height: 100%;
-    width: 1100px;
+    max-width: 1100px;
     margin: 0 auto;
+    padding: 0 24px;
 `
 
 const Text = styled.h1`
@@ -136,6 +140,11 @@ const Cloud = styled.div`
     left: 0;
     right: 0;
     bottom: -100px;
+
+    @media ${({theme}) => theme.device.tabletL} {
+        width: 1400px;
+        min-width: 1400px;
+    }
 `
 
 const Cloud2 = styled.div`
@@ -143,6 +152,11 @@ const Cloud2 = styled.div`
     position: absolute;
     left: -500px;
     bottom: -100px;
+
+    @media ${({theme}) => theme.device.tabletL} {
+        width: 1400px;
+        min-width: 1400px;
+    }
 `
 
 const Cloud3 = styled.div`
@@ -150,4 +164,9 @@ const Cloud3 = styled.div`
     position: absolute;
     right: -400px;
     bottom: -150px;
+
+    @media ${({theme}) => theme.device.tabletL} {
+        width: 1400px;
+        min-width: 1400px;
+    }
 `

@@ -1,42 +1,45 @@
-import styled from "styled-components"
+import styled, {ThemeProvider} from "styled-components"
 import { Container } from "./Container"
-import { Title } from "./Title"
+import { SectionSubTitle } from "./SectionSubTitle"
+import { SectionTitle } from "./SectionTitle"
+import theme from "../../styles/theme.js"
 
 const Contact = (props: any) => {
     return (
-        <ContactWrap id={props.id}>
-            <Title>Contact</Title>
-            <SubTitle>Let's create your next experience together</SubTitle>
-            <ContactCard>
-                <Info>
-                    <dt>Address</dt>
-                    <dd>경기도 수원시 권선구</dd>
-                    <dt>Email</dt>
-                    <dd>
-                        <Linkitem href="mailto:myungmin.works@gmail.com">myungmin.works@gmail.com</Linkitem>
-                    </dd>
-                    <dt>Git</dt>
-                    <dd>
-                        <Linkitem href="https://github.com/akaming" target="_blank">https://github.com/akaming</Linkitem>
-                    </dd>
-                    <dt>Blog</dt>
-                    <dd>
-                        <Linkitem href="https://myungmin.tistory.com/" target="_blank">공부 블로그</Linkitem>
-                    </dd>
-                </Info>
-            </ContactCard>
-        </ContactWrap>
+        <ThemeProvider theme={theme}>
+            <ContactWrap id={props.id}>
+                <SectionTitle>CONTACT</SectionTitle>
+                <SectionSubTitle>Let's create your next experience together</SectionSubTitle>
+                <ContactCard>
+                    <Info>
+                        <dt>Address</dt>
+                        <dd>경기도 수원시 권선구</dd>
+                        <dt>Email</dt>
+                        <dd>
+                            <Linkitem href="mailto:myungmin.works@gmail.com">myungmin.works@gmail.com</Linkitem>
+                        </dd>
+                        <dt>Git</dt>
+                        <dd>
+                            <Linkitem href="https://github.com/akaming" target="_blank">https://github.com/akaming</Linkitem>
+                        </dd>
+                        <dt>Blog</dt>
+                        <dd>
+                            <Linkitem href="https://myungmin.tistory.com/" target="_blank">공부 블로그</Linkitem>
+                        </dd>
+                    </Info>
+                </ContactCard>
+            </ContactWrap>
+        </ThemeProvider>
     )
 }
 
 const ContactWrap = styled(Container)`
     min-height: 500px;
     margin-bottom: 200px;
-    padding-top: 200px;
-`
 
-const SubTitle = styled.h3`
-    font-size: 24px;
+    @media ${theme.device.mobileL} {
+        margin-bottom: 50px;
+    }
 `
 
 const ContactCard = styled.div`
@@ -54,6 +57,16 @@ const ContactCard = styled.div`
 
     &:hover {
         margin-top: 60px;
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotate(0deg);
+    }
+
+    @media ${({theme}) => theme.device.tabletL} {
+        width: 60%;
+        transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotate(0deg);
+    }
+
+    @media ${({theme}) => theme.device.tablet} {
+        width: 100%;
         transform: perspective(1000px) rotateX(0deg) rotateY(0deg) rotate(0deg);
     }
 `

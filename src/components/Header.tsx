@@ -78,9 +78,9 @@ const HeaderWrap = styled.header<{isScroll: boolean}>`
     `}
 `
 const HeaderContainer = styled.div`
-    padding: 30px 0;
-    max-width: 1100px;
+    max-width: 1440px;
     margin: 0 auto; 
+    padding: 30px 24px;
 `
 const Nav = styled.div`
     display: flex;

@@ -1,13 +1,8 @@
-import type { NextPage, NextPageContext } from 'next'
-import { useEffect, useState } from 'react'
-import styled from 'styled-components'
 import About from '../src/components/About'
 import Contact from '../src/components/Contact'
-import { Container } from '../src/components/Container'
 import Header from '../src/components/Header'
 import Intro from '../src/components/Intro'
 import Works from '../src/components/Works'
-import { parseCookies } from "../src/helpers/"
 
 export default function Home() {
   
@@ -15,11 +10,10 @@ export default function Home() {
     <>
       <Header />
       <Intro id="intro"/>
-      <Container>
         <About id="about"/>
         <Works id="works"/>
         <Contact id="contact"/>
-      </Container>
+      
     </>
   )
 }
