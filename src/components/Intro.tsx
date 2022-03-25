@@ -1,5 +1,6 @@
 import styled, { keyframes, ThemeProvider } from "styled-components"
 import theme from "../../styles/theme.js"
+import ModeButton from "./ModeButton"
 
 const Intro = (props: any) => {
     return(
@@ -14,6 +15,7 @@ const Intro = (props: any) => {
                         I'm Myungmin Lee <br/>
                         Web Front Developer
                     </Text>
+                    <ModeButton />
                 </IntroTextBox>
                 <CloudBox>
                     <Cloud>
@@ -42,13 +44,16 @@ const Container = styled.div`
 `
 
 const IntroTextBox = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 24px;
+    position: absolute;
+    left: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 3;
+
+    @media ${({theme}) => theme.device.tabletL} {
+        left: 0;
+        padding-left: 24px;
+    }
 `
 
 const Text = styled.h1`
