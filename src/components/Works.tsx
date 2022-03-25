@@ -104,6 +104,7 @@ const CardImg = styled.img`
 
 const CardTitle = styled.h3`
     padding-top: 30px;
+    font-size: 18px;
 
     @media ${({theme}) => theme.device.tablet} {
         padding-top: 10px;

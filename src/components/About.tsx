@@ -103,12 +103,21 @@ const ProfileInfo = styled.dl`
     display: grid;
     grid-template-columns: 100px 1fr;
     row-gap: 10px;
+    
     dt {
         font-weight: bold;
     }
 
+    dt, dd, li {
+        font-size: 18px;
+    }
+
     @media ${({theme}) => theme.device.tablet} {
         padding-top: 50px;
+        
+        /* dt, dd, li {
+            font-size: 
+        } */
     }
 `
 

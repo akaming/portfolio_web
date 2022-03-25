@@ -1,6 +1,7 @@
 import Link from "next/link"
 import { useEffect, useState } from "react";
-import styled, {css} from "styled-components"
+import styled, {css, ThemeProvider} from "styled-components"
+import theme from "../../styles/theme.js"
 
 const Header =() => {
     const [isScroll, setIsScroll] = useState(false);
@@ -49,16 +50,18 @@ const Header =() => {
     }
 
     return (
-        <HeaderWrap isScroll={isScroll}>
-            <HeaderContainer>
-                <Nav>
-                    <Link href="#intro" passHref><NavItem isNavi={isNavi} naviNum={0} onClick={moveContent}>INTRO</NavItem></Link>
-                    <Link href="#about" passHref><NavItem isNavi={isNavi} naviNum={1} onClick={moveContent}>ABOUT</NavItem></Link>
-                    <Link href="#works" passHref><NavItem isNavi={isNavi} naviNum={2} onClick={moveContent}>WORKS</NavItem></Link>
-                    <Link href="#contact" passHref><NavItem isNavi={isNavi} naviNum={3} onClick={moveContent}>CONTACT</NavItem></Link>
-                </Nav>
-            </HeaderContainer>
-        </HeaderWrap>
+        <ThemeProvider theme={theme}>    
+            <HeaderWrap isScroll={isScroll}>
+                <HeaderContainer>
+                    <Nav>
+                        <Link href="#intro" passHref><NavItem isNavi={isNavi} naviNum={0} onClick={moveContent}>INTRO</NavItem></Link>
+                        <Link href="#about" passHref><NavItem isNavi={isNavi} naviNum={1} onClick={moveContent}>ABOUT</NavItem></Link>
+                        <Link href="#works" passHref><NavItem isNavi={isNavi} naviNum={2} onClick={moveContent}>WORKS</NavItem></Link>
+                        <Link href="#contact" passHref><NavItem isNavi={isNavi} naviNum={3} onClick={moveContent}>CONTACT</NavItem></Link>
+                    </Nav>
+                </HeaderContainer>
+            </HeaderWrap>
+        </ThemeProvider>
     )
 }
 
@@ -88,7 +91,7 @@ const Nav = styled.div`
 `
 
 const NavItem = styled.a<{isNavi: number, naviNum: number}>`
-    font-size: 12px;
+    font-size: 16px;
     cursor: pointer;
     color: #8ea7ca;
     font-weight: bold;
@@ -99,6 +102,10 @@ const NavItem = styled.a<{isNavi: number, naviNum: number}>`
     ${props => props.isNavi === 0 && props.naviNum === 0 && css`
         color: #8ea7ca;
     `}
+
+    @media ${({theme}) => theme.device.tablet} {
+        font-size: 12px;
+    }
 `
 
 export default Header

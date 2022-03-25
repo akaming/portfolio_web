@@ -7,7 +7,7 @@ const fontSizes = {
     lg: "18px",
     xl: "20px",
     xxl: "30px",
-    xxxl: "50px",
+    xxxl: "38px",
 };
   
   const deviceSizes = {
