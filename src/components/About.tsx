@@ -112,12 +112,12 @@ const ProfileInfo = styled.dl`
         font-size: 18px;
     }
 
+    li {
+        padding-bottom: 5px;
+    }
+
     @media ${({theme}) => theme.device.tablet} {
         padding-top: 50px;
-        
-        /* dt, dd, li {
-            font-size: 
-        } */
     }
 `
 

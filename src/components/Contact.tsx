@@ -77,6 +77,10 @@ const Info = styled.dl`
     row-gap: 10px;
     margin: auto;
 
+    dt,dd {
+        color: #fff;
+    }
+    
     @media ${({theme}) => theme.device.mobileL} {
         grid-template-columns: 1fr 3fr;
     }

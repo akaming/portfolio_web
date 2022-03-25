@@ -10,7 +10,7 @@ const Intro = (props: any) => {
                 <Stars3 />
                 <IntroTextBox>
                     <Text>
-                        Hello. <br/>
+                        <span>Hello.</span>
                         I'm Myungmin Lee <br/>
                         Web Front Developer
                     </Text>
@@ -53,7 +53,13 @@ const IntroTextBox = styled.div`
 
 const Text = styled.h1`
     color: #fff;
-    font-size: 40px;
+    font-size: 30px;
+
+    span {
+        display: block;
+        font-size: 40px;
+        color: #fff;
+    }
 `
 
 const animate_stars = keyframes`

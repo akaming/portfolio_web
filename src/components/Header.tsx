@@ -96,7 +96,7 @@ const NavItem = styled.a<{isNavi: number, naviNum: number}>`
     color: #8ea7ca;
     font-weight: bold;
     ${props => props.isNavi === props.naviNum && css`
-        color: #000;
+        color: #2c3a5a;
     `}
 
     ${props => props.isNavi === 0 && props.naviNum === 0 && css`

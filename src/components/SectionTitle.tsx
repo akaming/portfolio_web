@@ -6,6 +6,7 @@ export const SectionTitle = styled.h2`
     font-weight: 700;
     line-height: 48px;
     font-size: ${theme.fontSizes.xxxl};
+    font-family: ${({theme}) => theme.fontName.NotoSans};
 
     @media ${theme.device.tablet} {
         font-size: ${theme.fontSizes.xxl};
