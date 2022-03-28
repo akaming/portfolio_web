@@ -1,9 +1,16 @@
+import React, { ButtonHTMLAttributes, DetailedHTMLProps, InputHTMLAttributes, useState } from "react";
 import styled from "styled-components"
 
-const ModeButton = () => {
+type Props = {
+    onClick?: React.MouseEventHandler;
+    onChange?: React.ChangeEventHandler;
+}
+
+const ModeButton: React.FC<Props> = ({ onClick, onChange}) => {
+    
     return (
-        <ButtonBox>
-            <ButtonCheckbox type="checkbox"/>
+        <ButtonBox onClick={onClick}>
+            <ButtonCheckbox type="checkbox" onChange={onChange}/>
         </ButtonBox>
     )
 }
@@ -30,7 +37,6 @@ const ButtonCheckbox = styled.input`
    cursor: pointer;
 
     :before {
-        /* content: '🌛'; */
         content: '';
         position: absolute;
         width: 80px;

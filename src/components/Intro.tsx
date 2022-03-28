@@ -1,11 +1,18 @@
-import styled, { keyframes, ThemeProvider } from "styled-components"
+import { useState } from "react";
+import styled, { css, keyframes, ThemeProvider } from "styled-components"
 import theme from "../../styles/theme.js"
 import ModeButton from "./ModeButton"
 
 const Intro = (props: any) => {
+
+    const [isLightMode, setLightMode] = useState(false);
+    const onChangeHandler = () => {
+        setLightMode(!isLightMode);
+    }
+
     return(
         <ThemeProvider theme={theme}>
-            <Container id={props.id}>
+            <Container id={props.id} isLightMode={isLightMode}>
                 <Stars />
                 <Stars2 />
                 <Stars3 />
@@ -15,7 +22,7 @@ const Intro = (props: any) => {
                         I'm Myungmin Lee <br/>
                         Web Front Developer
                     </Text>
-                    <ModeButton />
+                    <ModeButton onChange={onChangeHandler}/>
                 </IntroTextBox>
                 <CloudBox>
                     <Cloud>
@@ -35,12 +42,16 @@ const Intro = (props: any) => {
 
 export default Intro
 
-const Container = styled.div`
+const Container = styled.div<{isLightMode: boolean}>`
     width: 100%;
     height: 100vh;
     background: linear-gradient(#000000,#3b70b4);
     position: relative;
     overflow: hidden;
+
+    ${props => props.isLightMode && css`
+        background: linear-gradient(#a67c9d,#e88c75,#ffdcbe);
+    `}
 `
 
 const IntroTextBox = styled.div`
