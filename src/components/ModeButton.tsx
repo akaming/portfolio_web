@@ -2,14 +2,13 @@ import React, { ButtonHTMLAttributes, DetailedHTMLProps, InputHTMLAttributes, us
 import styled from "styled-components"
 
 type Props = {
-    onClick?: React.MouseEventHandler;
     onChange?: React.ChangeEventHandler;
 }
 
-const ModeButton: React.FC<Props> = ({ onClick, onChange}) => {
+const ModeButton: React.FC<Props> = ({onChange}) => {
     
     return (
-        <ButtonBox onClick={onClick}>
+        <ButtonBox>
             <ButtonCheckbox type="checkbox" onChange={onChange}/>
         </ButtonBox>
     )
