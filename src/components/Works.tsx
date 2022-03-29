@@ -13,29 +13,46 @@ interface List {
 
 const Works = (props: any) => {
     const [list, setList] = useState<List[]>()
+    const [page, setPage] = useState<number>(1)
+    const [nextpage, setNextpage] = useState<boolean>(true)
 
     useEffect(() => {
       getList();
-    }, []);
+    }, [page]);
     
     const getList = async() => {
         try {
-            const result = await axios.get(process.env.NEXT_PUBLIC_API_URL + '/v1/portfolios/')
+            const result = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/v1/portfolios?page=${page}`)
             const temp:List[] = []
-    
+            
             result.data.data.map((data:any) => {
                 temp.push({
                     id: data.id,
                     title: data.title,
-                    img: data.img,
+                    img: process.env.NEXT_PUBLIC_API_URL + `/v1/portfolios/image/${data.id}`,
                 })
             })
-    
-            setList(temp);
+            
+            // 더보기 버튼 클릭시 data 추가
+            if(page > 1) {
+                setList([...list!, ...temp]);
+                
+            } else {
+                setList(temp);   
+            }
+
+            // 마지막 페이지 일시 더보기 버튼 삭제
+            if(result.data.meta.next_page_url === null) {
+                setNextpage(false);
+            }
 
         } catch(error) {
             console.error(error);
         }
+    }
+
+    const moreButtonHandler = () => {
+        setPage(page + 1 );
     }
 
     return (
@@ -48,7 +65,7 @@ const Works = (props: any) => {
                             return (
                                 <CardWrap key={data.id}>
                                     <Card>
-                                        <CardImg src="https://dummyimage.com/600x400/000/fff" alt={data.title}></CardImg>
+                                        <CardImg src={data.img} alt={data.title}></CardImg>
                                         <CardTitle>{data.title}</CardTitle>
                                     </Card>
                                 </CardWrap>
@@ -56,6 +73,10 @@ const Works = (props: any) => {
                         })
                     }
                 </CardGroup>
+                {
+                    nextpage &&
+                    <MoreButton onClick={moreButtonHandler}>더보기</MoreButton>
+                }
             </WorksWrap>
         </ThemeProvider>
     )
@@ -107,5 +128,25 @@ const CardTitle = styled.h3`
     font-size: 18px;
     @media ${({theme}) => theme.device.tablet} {
         padding-top: 10px;
+    }
+`
+
+const MoreButton = styled.button`
+    padding: 15px 25px;
+    background-color: #121212;
+    font-size: 17px;
+    font-weight: 400;
+    color: #fff;
+    text-transform: none;
+    cursor: pointer;
+    letter-spacing: unset;
+    border-radius: 4px;
+    transition: all 0.5s ease-in-out;
+    border: 1px solid transparent;
+    
+    &:hover {
+        border-color: #121212;
+        background-color: #fff;
+        color: #121212;
     }
 `
