@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react"
-import styled from "styled-components"
+import styled, {ThemeProvider} from "styled-components"
 import axios from "axios"
 import Swal from "sweetalert2"
 import { useRouter } from "next/router"
 import { useCookies } from "react-cookie"
-import { Container } from "../src/components/Container"
 import Header from "../src/components/Header"
+import theme from "../styles/theme.js"
 
 interface User {
     email: string,
@@ -118,7 +118,7 @@ const Login = () => {
     }
 
     return(
-        <Container>
+        <ThemeProvider theme={theme}>
             <Header />
             <LoginWrap>
                 <LoginBox>
@@ -131,15 +131,16 @@ const Login = () => {
                     </form>
                 </LoginBox>
             </LoginWrap>
-        </Container>
+        </ThemeProvider>
     )
 }
 
 const LoginWrap = styled.div`
     display: flex;
-    justify-content: center;
     align-items: center;
-    min-height: 100vh;
+    flex-direction: row;
+    justify-content: center;
+    height: 100vh;
 `
 
 const LoginBox = styled.div`
@@ -148,6 +149,11 @@ const LoginBox = styled.div`
     border-top: 2px solid #21A6AE;
     background-color: #fff;
     box-shadow: 0 3px 6px 0 #dadce1;
+    margin: auto;
+
+    @media ${({theme}) => theme.device.tablet} {
+        padding: 60px 24px;
+    }
 `
 
 const InputGroup = styled.div`
