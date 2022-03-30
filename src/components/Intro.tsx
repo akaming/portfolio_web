@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled, { css, keyframes, ThemeProvider } from "styled-components"
 import theme from "../../styles/theme.js"
 import ModeButton from "./ModeButton"
 
 const Intro = (props: any) => {
-
+      
     const [isLightMode, setLightMode] = useState(false);
     const onChangeHandler = () => {
         setLightMode(!isLightMode);

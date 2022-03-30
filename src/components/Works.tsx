@@ -65,7 +65,7 @@ const Works = (props: any) => {
                             return (
                                 <CardWrap key={data.id}>
                                     <Card>
-                                        <CardImg src={data.img} alt={data.title}></CardImg>
+                                        <CardImg style={{backgroundImage:`url(${data.img})`}} />
                                         <CardTitle>{data.title}</CardTitle>
                                     </Card>
                                 </CardWrap>
@@ -113,14 +113,22 @@ const CardWrap = styled.a`
 const Card = styled.div`
     margin: 0 30px;
     font-size: 0;
+    transition: all 0.4s ease;
+
+    &:hover {
+        -webkit-filter: brightness(.6);
+    }
 
     @media ${({theme}) => theme.device.tablet} {
         margin: 0 15px;
     }
 `
 
-const CardImg = styled.img`
-    width: 100%;
+const CardImg = styled.div`
+    padding-top: calc(947/1421 * 100%);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
 `
 
 const CardTitle = styled.h3`
@@ -143,10 +151,11 @@ const MoreButton = styled.button`
     border-radius: 4px;
     transition: all 0.5s ease-in-out;
     border: 1px solid transparent;
-    
+
     &:hover {
         border-color: #121212;
         background-color: #fff;
         color: #121212;
+        border-radius: 40px;
     }
 `
