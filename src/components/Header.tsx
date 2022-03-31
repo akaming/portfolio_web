@@ -91,7 +91,7 @@ const Nav = styled.div`
 `
 
 const NavItem = styled.a<{isNavi: number, naviNum: number}>`
-    font-size: 16px;
+    font-size: 17px;
     cursor: pointer;
     color: #8ea7ca;
     font-weight: bold;

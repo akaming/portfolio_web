@@ -5,6 +5,7 @@ import styled, {ThemeProvider} from "styled-components"
 import { Container } from "./Container"
 import { SectionTitle } from "./SectionTitle"
 import theme from "../../styles/theme.js"
+import { parseCookies } from "../../src/helpers"
 interface PortfolioProps {
     id: number,
     title: string,
@@ -13,12 +14,12 @@ interface PortfolioProps {
 } 
 
 const Works = (props: any) => {
-    const [list, setList] = useState<PortfolioProps[]>()
-    const [popupData, setPopupData] = useState<PortfolioProps>()
-    const [page, setPage] = useState<number>(1)
-    const [nextpage, setNextpage] = useState<boolean>(true)
+    const [list, setList] = useState<PortfolioProps[]>();
+    const [popupData, setPopupData] = useState<PortfolioProps>();
+    const [page, setPage] = useState<number>(1);
+    const [nextpage, setNextpage] = useState<boolean>(true);
     const [showPopup, setShowPopup] = useState(false);
-
+    
     useEffect(() => {
       getList();
     }, [page]);
@@ -224,7 +225,7 @@ const PopupBox = styled.div`
     z-index: 102;
     width: 70em;
     max-width: 100%;
-    padding: 50px 20px 20px;
+    padding: 50px 0px 20px;
     border: none;
     border-radius: 5px;
     background: #fff;
@@ -276,7 +277,10 @@ const CloseButton = styled.button`
     }
 `
 
-const PopupInfo = styled.div``
+const PopupInfo = styled.div`
+    height: 90vh;
+    overflow-y: auto;
+`
 
 const PopupImg = styled.img`
   width: 100%;
