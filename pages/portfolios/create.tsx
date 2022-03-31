@@ -137,6 +137,7 @@ const ContentArea = styled.textarea`
     box-sizing: border-box;
     border: 1px solid #e5e5e5;
     transition: all .1s ease-in-out;
+    white-space: pre-wrap;
 `
 
 const Button = styled.button`

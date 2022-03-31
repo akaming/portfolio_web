@@ -68,6 +68,13 @@ const Works = (props: any) => {
         setShowPopup(false)
     }
 
+    const htmlContent = () => {
+        return {
+            // __html: 'hello<br/>html'
+            __html: (popupData?.content?.replaceAll('\n', '<br />')) || ''
+        }
+    }
+
     return (
         <ThemeProvider theme={theme}>
             <WorksWrap id={props.id}>
@@ -96,7 +103,9 @@ const Works = (props: any) => {
                                 <PopupInfo>
                                     <PopupImg style={{backgroundImage:`url(${popupData.img})`}}/>
                                     <PopupTitle>{popupData.title}</PopupTitle>
-                                    <PopupContent>{popupData.content}</PopupContent>
+                                    <PopupContent>
+                                        <p dangerouslySetInnerHTML={htmlContent()}></p>
+                                    </PopupContent>
                                 </PopupInfo>
 
                             }
@@ -282,6 +291,8 @@ const PopupTitle = styled.h3`
     font-family: ${({theme}) => theme.fontName.NotoSans}, sans-serif;
 `
 
-const PopupContent = styled.p`
-    font-family: ${({theme}) => theme.fontName.NotoSans}, sans-serif;
+const PopupContent = styled.div`
+    p {
+        font-family: ${({theme}) => theme.fontName.NotoSans}, sans-serif;
+    }
 `
