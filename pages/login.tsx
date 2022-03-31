@@ -169,6 +169,7 @@ const Input = styled.input`
     box-sizing: border-box;
     border: 1px solid #e5e5e5;
     transition: all .1s ease-in-out;
+    font-family: ${({theme}) => theme.fontName.NotoSans}, sans-serif;
 `
 
 const Button = styled.button`

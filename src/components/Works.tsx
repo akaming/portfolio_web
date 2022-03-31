@@ -5,16 +5,19 @@ import styled, {ThemeProvider} from "styled-components"
 import { Container } from "./Container"
 import { SectionTitle } from "./SectionTitle"
 import theme from "../../styles/theme.js"
-interface List {
+interface PortfolioProps {
     id: number,
     title: string,
-    img: string
+    img: string,
+    content: string,
 } 
 
 const Works = (props: any) => {
-    const [list, setList] = useState<List[]>()
+    const [list, setList] = useState<PortfolioProps[]>()
+    const [popupData, setPopupData] = useState<PortfolioProps>()
     const [page, setPage] = useState<number>(1)
     const [nextpage, setNextpage] = useState<boolean>(true)
+    const [showPopup, setShowPopup] = useState(false);
 
     useEffect(() => {
       getList();
@@ -23,13 +26,14 @@ const Works = (props: any) => {
     const getList = async() => {
         try {
             const result = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/v1/portfolios?page=${page}`)
-            const temp:List[] = []
+            const temp:PortfolioProps[] = []
             
             result.data.data.map((data:any) => {
                 temp.push({
                     id: data.id,
                     title: data.title,
                     img: process.env.NEXT_PUBLIC_API_URL + `/v1/portfolios/image/${data.id}`,
+                    content: data.content,
                 })
             })
             
@@ -55,15 +59,24 @@ const Works = (props: any) => {
         setPage(page + 1 );
     }
 
+    const popUp = (data: PortfolioProps) => {
+        setPopupData(data);
+        setShowPopup(true)
+    }
+
+    const closePopup = () => {
+        setShowPopup(false)
+    }
+
     return (
         <ThemeProvider theme={theme}>
             <WorksWrap id={props.id}>
                 <SectionTitle>WORKS</SectionTitle>
                 <CardGroup>
                     {
-                        list?.map((data:List) => {
+                        list?.map((data:PortfolioProps) => {
                             return (
-                                <CardWrap key={data.id}>
+                                <CardWrap key={data.id} onClick={() => popUp(data)}>
                                     <Card>
                                         <CardImg style={{backgroundImage:`url(${data.img})`}} />
                                         <CardTitle>{data.title}</CardTitle>
@@ -73,6 +86,24 @@ const Works = (props: any) => {
                         })
                     }
                 </CardGroup>
+                {
+                    showPopup &&
+                    <PopupWrap>
+                        <PopupBox>
+                            <CloseButton onClick={closePopup}>닫기</CloseButton>
+                            {
+                                popupData &&
+                                <PopupInfo>
+                                    <PopupImg style={{backgroundImage:`url(${popupData.img})`}}/>
+                                    <PopupTitle>{popupData.title}</PopupTitle>
+                                    <PopupContent>{popupData.content}</PopupContent>
+                                </PopupInfo>
+
+                            }
+                        </PopupBox>
+                        <PopupDim onClick={closePopup}/>
+                    </PopupWrap>
+                }
                 {
                     nextpage &&
                     <MoreButton onClick={moreButtonHandler}>더보기</MoreButton>
@@ -158,4 +189,99 @@ const MoreButton = styled.button`
         color: #121212;
         border-radius: 40px;
     }
+`
+
+const PopupWrap = styled.div`
+    display: grid;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    box-sizing: border-box;
+    grid-template-rows: minmax(min-content,auto) minmax(min-content,auto) minmax(min-content,auto);
+    height: 100%;
+    padding: 0.625em;
+    overflow-x: hidden;
+    
+    grid-template-columns: auto minmax(0,1fr) auto;
+`
+
+const PopupBox = styled.div`
+    position: relative;
+    box-sizing: border-box;
+    grid-template-columns: minmax(0,100%);
+    z-index: 102;
+    width: 70em;
+    max-width: 100%;
+    padding: 50px 20px 20px;
+    border: none;
+    border-radius: 5px;
+    background: #fff;
+    color: #545454;
+    grid-column: 2;
+    grid-row: 2;
+    align-self: center;
+    justify-self: center;
+    -webkit-tap-highlight-color: transparent;
+`
+
+const PopupDim = styled.div`
+    position: fixed;
+    z-index: 101;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: background-color .1s;
+    background: rgba(0,0,0,.4);
+`
+
+const CloseButton = styled.button`
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    font-size: 0;
+    background-color: transparent;
+
+    &::before, 
+    &::after {
+        content: "";
+        height: 1px;
+        width: 100%;
+        background-color: #999;
+        position: absolute;
+        transform: rotate(45deg) translateY(-50%);
+        top: 50%;
+        left: 0;
+    }
+
+    &::after {
+        transform: rotate(-45deg);
+    }
+`
+
+const PopupInfo = styled.div``
+
+const PopupImg = styled.img`
+  width: 100%;
+  padding-top: calc(947/1421 * 100%);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+`
+
+const PopupTitle = styled.h3`
+    font-weight: bold;
+    font-family: ${({theme}) => theme.fontName.NotoSans}, sans-serif;
+`
+
+const PopupContent = styled.p`
+    font-family: ${({theme}) => theme.fontName.NotoSans}, sans-serif;
 `

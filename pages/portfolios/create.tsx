@@ -107,7 +107,6 @@ const CreateWrap = styled.div`
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin-top: 76px;
 `
 
 const CreateBox = styled.div`
