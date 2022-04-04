@@ -278,7 +278,7 @@ const CloseButton = styled.button`
 `
 
 const PopupInfo = styled.div`
-    height: 90vh;
+    height: 80vh;
     overflow-y: auto;
 `
 
