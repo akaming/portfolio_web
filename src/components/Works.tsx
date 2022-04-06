@@ -87,7 +87,9 @@ const Works = (props: any) => {
                                 <CardWrap key={data.id} onClick={() => popUp(data)}>
                                     <Card>
                                         <CardImg style={{backgroundImage:`url(${data.img})`}} />
-                                        <CardTitle>{data.title}</CardTitle>
+                                        <CardTitleBox>
+                                            <CardTitle>{data.title}</CardTitle>
+                                        </CardTitleBox>
                                     </Card>
                                 </CardWrap>
                             )
@@ -152,13 +154,10 @@ const CardWrap = styled.a`
 `
 
 const Card = styled.div`
+    position: relative;
     margin: 0 30px;
     font-size: 0;
     transition: all 0.4s ease;
-
-    &:hover {
-        -webkit-filter: brightness(.6);
-    }
 
     @media ${({theme}) => theme.device.tablet} {
         margin: 0 15px;
@@ -172,12 +171,29 @@ const CardImg = styled.div`
     background-position: center;
 `
 
+const CardTitleBox = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    opacity: 0;
+    transition: 0.3s all;
+
+    &:hover {
+        opacity: 1;
+    }
+`
+
 const CardTitle = styled.h3`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     padding-top: 30px;
     font-size: 18px;
-    @media ${({theme}) => theme.device.tablet} {
-        padding-top: 10px;
-    }
+    color: #fff;
 `
 
 const MoreButton = styled.button`
@@ -214,7 +230,6 @@ const PopupWrap = styled.div`
     height: 100%;
     padding: 0.625em;
     overflow-x: hidden;
-    
     grid-template-columns: auto minmax(0,1fr) auto;
 `
 
