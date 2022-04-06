@@ -4,7 +4,6 @@ import axios from "axios"
 import Swal from "sweetalert2"
 import { useRouter } from "next/router"
 import { useCookies } from "react-cookie"
-import Header from "../src/components/Header"
 import theme from "../styles/theme.js"
 
 interface User {
@@ -119,7 +118,6 @@ const Login = () => {
 
     return(
         <ThemeProvider theme={theme}>
-            <Header />
             <LoginWrap>
                 <LoginBox>
                     <form onSubmit={loginFrom}>
