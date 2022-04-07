@@ -6,6 +6,9 @@ import { Container } from "./Container"
 import { SectionTitle } from "./SectionTitle"
 import theme from "../../styles/theme.js"
 import { parseCookies } from "../../src/helpers"
+import Link from "next/link"
+import { useAtom } from 'jotai'
+import Profile from "../store/profile"
 interface PortfolioProps {
     id: number,
     title: string,
@@ -19,6 +22,9 @@ const Works = (props: any) => {
     const [page, setPage] = useState<number>(1);
     const [nextpage, setNextpage] = useState<boolean>(true);
     const [showPopup, setShowPopup] = useState(false);
+    const [isAdmin, setIsAdmin] = useAtom(Profile)
+    // const [isAdmin, setIsAdmin] = useState(props?.isAdmin);
+    // const [isAdmin, setIsAdmin] = useAtom(countAtom);
     
     useEffect(() => {
       getList();
@@ -71,7 +77,6 @@ const Works = (props: any) => {
 
     const htmlContent = () => {
         return {
-            // __html: 'hello<br/>html'
             __html: (popupData?.content?.replaceAll('\n', '<br />')) || ''
         }
     }
@@ -100,6 +105,16 @@ const Works = (props: any) => {
                     showPopup &&
                     <PopupWrap>
                         <PopupBox>
+                            {
+                                isAdmin &&
+                                <EditBox>
+                                    <DeleteButton>삭제</DeleteButton>
+                                    <Link href={`/portfolios/${popupData?.id}/edit`}>
+                                        <EditButton>수정</EditButton>
+                                    </Link>
+                                </EditBox>
+                                
+                            }
                             <CloseButton onClick={closePopup}>닫기</CloseButton>
                             {
                                 popupData &&
@@ -250,6 +265,10 @@ const PopupBox = styled.div`
     align-self: center;
     justify-self: center;
     -webkit-tap-highlight-color: transparent;
+
+    @media ${({theme}) => theme.device.mobileL} {
+        grid-row: auto;
+    }
 `
 
 const PopupDim = styled.div`
@@ -314,4 +333,31 @@ const PopupContent = styled.div`
     p {
         font-family: ${({theme}) => theme.fontName.NotoSans}, sans-serif;
     }
+`
+
+const EditBox = styled.div`
+    position: absolute;
+    right: 45px;
+    top: 11px;
+`
+
+const EditButton = styled.a`
+    display: inline-block;
+    background-color: #6767ff;
+    padding: 5px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
+`
+
+const DeleteButton = styled.button`
+    display: inline-block;
+    margin-right: 5px;
+    background-color: #ff4b4b;
+    padding: 5px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 12px;
+    cursor: pointer;
 `
