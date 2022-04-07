@@ -13,7 +13,10 @@ export default function Home(props:any ) {
   
   useEffect(() => {
     if(props.data.token){
-      setIsAdmin(true);
+      setIsAdmin({
+        adimin: true,
+        token: props.data.token
+      });
     }
   }, []);
   

@@ -9,6 +9,7 @@ import { parseCookies } from "../../src/helpers"
 import Link from "next/link"
 import { useAtom } from 'jotai'
 import Profile from "../store/profile"
+import Swal from "sweetalert2"
 interface PortfolioProps {
     id: number,
     title: string,
@@ -23,11 +24,11 @@ const Works = (props: any) => {
     const [nextpage, setNextpage] = useState<boolean>(true);
     const [showPopup, setShowPopup] = useState(false);
     const [isAdmin, setIsAdmin] = useAtom(Profile)
-    // const [isAdmin, setIsAdmin] = useState(props?.isAdmin);
-    // const [isAdmin, setIsAdmin] = useAtom(countAtom);
     
     useEffect(() => {
       getList();
+      console.log(isAdmin);
+      
     }, [page]);
     
     const getList = async() => {
@@ -59,6 +60,41 @@ const Works = (props: any) => {
 
         } catch(error) {
             console.error(error);
+        }
+    }
+
+    const deleteData = () => {
+        try {
+            Swal.fire({
+                title: '삭제',
+                text: '삭제 하시겠습니까?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: '예',
+                cancelButtonText: '아니오'
+            }).then(async(result: any) => {
+                if (result.isConfirmed) {
+                await axios.delete(process.env.NEXT_PUBLIC_API_URL + `/v1/admin/portfolios/${popupData?.id}`,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                        'Authorization': `Bearer ${isAdmin.token}`
+                    }
+                });
+                  Swal.fire({
+                    title: '삭제 완료',
+                    text: '게시글이 삭제되었습니다.',
+                    icon: 'info',
+                    confirmButtonText: '확인',
+                    allowOutsideClick: false,
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                        location.reload();
+                    }
+                })
+                }
+              })
+        } catch (error) {
+            console.error(error)
         }
     }
 
@@ -106,9 +142,9 @@ const Works = (props: any) => {
                     <PopupWrap>
                         <PopupBox>
                             {
-                                isAdmin &&
+                                isAdmin.adimin &&
                                 <EditBox>
-                                    <DeleteButton>삭제</DeleteButton>
+                                    <DeleteButton onClick={deleteData}>삭제</DeleteButton>
                                     <Link href={`/portfolios/${popupData?.id}/edit`}>
                                         <EditButton>수정</EditButton>
                                     </Link>
@@ -138,6 +174,13 @@ const Works = (props: any) => {
             </WorksWrap>
         </ThemeProvider>
     )
+}
+
+Works.getInitialProps = async({req, res}:NextPageContext) => {
+    const data = parseCookies(req)
+    return {
+        data: data && data
+    }
 }
 
 export default Works;

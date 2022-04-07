@@ -1,5 +1,8 @@
 import { atom } from 'jotai'
 
-const Profile = atom(false);
+const Profile = atom({
+  adimin: false,
+  token: ''  
+});
 
 export default Profile
