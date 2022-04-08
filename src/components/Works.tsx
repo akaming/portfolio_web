@@ -27,7 +27,6 @@ const Works = (props: any) => {
     
     useEffect(() => {
       getList();
-      console.log(isAdmin);
       
     }, [page]);
     

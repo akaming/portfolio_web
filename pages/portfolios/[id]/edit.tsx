@@ -28,7 +28,7 @@ export default function Edit({data}:any) {
         if (!id) {
             return
         }
-        // console.log('data', data.token);
+
         if (data.token) {
             axios.defaults.headers.common = {
                 'Content-Type': 'multipart/form-data',
@@ -41,8 +41,6 @@ export default function Edit({data}:any) {
  
     const handleSubmit = async(e:React.FormEvent) => {
         e.preventDefault();
-        console.log(data.token);
-        
         
         try {
             const result = await axios.patch(process.env.NEXT_PUBLIC_API_URL + `/v1/admin/portfolios/${id}`, board);
@@ -73,7 +71,6 @@ export default function Edit({data}:any) {
     const getData = async() => {
         try {
             const result = await axios.get(process.env.NEXT_PUBLIC_API_URL + `/v1/admin/portfolios/${id}`) 
-            console.log(result);
             
             setBoard({
                 id: result?.data?.id,
