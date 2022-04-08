@@ -120,6 +120,14 @@ const Works = (props: any) => {
         <ThemeProvider theme={theme}>
             <WorksWrap id={props.id}>
                 <SectionTitle>WORKS</SectionTitle>
+                {
+                    isAdmin.adimin &&
+                    <CreateButtonBox>
+                        <Link href="/portfolios/create">
+                            <CreateButton>글작성</CreateButton>
+                        </Link>
+                    </CreateButtonBox>
+                }
                 <CardGroup>
                     {
                         list?.map((data:PortfolioProps) => {
@@ -155,10 +163,10 @@ const Works = (props: any) => {
                                 popupData &&
                                 <PopupInfo>
                                     <PopupImg style={{backgroundImage:`url(${popupData.img})`}}/>
-                                    <PopupTitle>{popupData.title}</PopupTitle>
-                                    <PopupContent>
-                                        <p dangerouslySetInnerHTML={htmlContent()}></p>
-                                    </PopupContent>
+                                    <PopupContentBox>
+                                        <PopupTitle>{popupData.title}</PopupTitle>
+                                        <PopupText dangerouslySetInnerHTML={htmlContent()} />
+                                    </PopupContentBox>
                                 </PopupInfo>
 
                             }
@@ -215,6 +223,7 @@ const Card = styled.div`
     margin: 0 30px;
     font-size: 0;
     transition: all 0.4s ease;
+    box-shadow: 0px -1px 10px 4px rgb(0 0 0 / 20%);
 
     @media ${({theme}) => theme.device.tablet} {
         margin: 0 15px;
@@ -356,6 +365,7 @@ const CloseButton = styled.button`
 const PopupInfo = styled.div`
     height: 80vh;
     overflow-y: auto;
+    font-size: 0;
 `
 
 const PopupImg = styled.img`
@@ -368,13 +378,18 @@ const PopupImg = styled.img`
 
 const PopupTitle = styled.h3`
     font-weight: bold;
+    font-size: 18px;
     font-family: ${({theme}) => theme.fontName.NotoSans}, sans-serif;
 `
 
-const PopupContent = styled.div`
-    p {
-        font-family: ${({theme}) => theme.fontName.NotoSans}, sans-serif;
-    }
+const PopupContentBox = styled.div`
+    padding: 20px 5vw;
+    border-top: 20px solid #eee;
+    text-align: left;
+`
+
+const PopupText = styled.p`
+    font-family: ${({theme}) => theme.fontName.NotoSans}, sans-serif;
 `
 
 const EditBox = styled.div`
@@ -402,4 +417,16 @@ const DeleteButton = styled.button`
     font-weight: bold;
     font-size: 12px;
     cursor: pointer;
+`
+
+const CreateButtonBox = styled.div`
+    display: flex;
+    justify-content: end;
+`
+
+const CreateButton = styled.a`
+    background-color: #3b70b4;
+    padding: 5px;
+    color: #fff;
+    display: inline-block;
 `
