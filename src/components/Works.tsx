@@ -207,8 +207,7 @@ const CardGroup = styled.div`
     }
 `
 
-const CardWrap = styled.a`
-    cursor: pointer;
+const CardWrap = styled.div`
     flex-basis: 50%;
     margin: 30px 0;
 
@@ -237,7 +236,7 @@ const CardImg = styled.div`
     background-position: center;
 `
 
-const CardTitleBox = styled.div`
+const CardTitleBox = styled.a`
     position: absolute;
     top: 0;
     left: 0;
@@ -246,7 +245,8 @@ const CardTitleBox = styled.div`
     background: rgba(0, 0, 0, 0.8);
     opacity: 0;
     transition: 0.3s all;
-
+    cursor: pointer;
+    
     &:hover {
         opacity: 1;
     }
@@ -386,6 +386,7 @@ const PopupContentBox = styled.div`
     padding: 20px 5vw;
     border-top: 20px solid #eee;
     text-align: left;
+    word-break: break-word;
 `
 
 const PopupText = styled.p`

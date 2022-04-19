@@ -16,7 +16,7 @@ interface Board {
     id?: number,
     title?: string,
     content?: string,
-    // img: File | null,
+    img?: File | null,
 }
 
 export default function Edit({data}:any) {
@@ -25,6 +25,7 @@ export default function Edit({data}:any) {
     const { id } = router.query;
     
     useEffect(() => {
+        
         if (!id) {
             return
         }
@@ -38,17 +39,38 @@ export default function Edit({data}:any) {
 
         getData();
     }, [id])
- 
+    
+    const handleFile = function(e: React.ChangeEvent<HTMLInputElement>) {
+        const fileList = e.target.files;
+    
+        if (!fileList) return;
+
+        setBoard({...board, img: fileList[0]})
+
+        console.log(fileList);
+    }    
+
     const handleSubmit = async(e:React.FormEvent) => {
         e.preventDefault();
+
+        if (!board) {
+            return false;
+        }
         
         try {
-            const result = await axios.patch(process.env.NEXT_PUBLIC_API_URL + `/v1/admin/portfolios/${id}`, board);
-            setBoard({
-                ...board,
-                title: result?.data?.title,
-                content: result?.data?.content,
-            });
+            const formData = new FormData();
+            if (board.title) {
+                formData.append('title', board.title);
+            }
+            if(board.content){
+                formData.append('content', board.content);
+            }
+            if (board.img) {
+                formData.append('img', board?.img!, 'test' );
+            }
+
+            const result = await axios.patch(process.env.NEXT_PUBLIC_API_URL + `/v1/admin/portfolios/${id}`, formData);
+           
             Swal.fire({
                 title: '글쓰기 수정 완료',
                 text: '글쓰기 수정 완료되었습니다.',
@@ -76,6 +98,7 @@ export default function Edit({data}:any) {
                 id: result?.data?.id,
                 title: result?.data?.title,
                 content: result?.data?.content,
+                img: result?.data?.portfolio?.img
             })
         } catch (error) {
             console.error(error)
@@ -88,9 +111,9 @@ export default function Edit({data}:any) {
             <CreateWrap>
                 <FormBox>
                     <form onSubmit={handleSubmit}>
-                        <FormInput type="text" placeholder="제목" value={board?.title} onChange={(e:React.ChangeEvent<HTMLInputElement>) => {setBoard({...board,title: e.target.value})}} />
+                        <FormInput type="text" placeholder="제목" value={board?.title} onChange={(e:React.ChangeEvent<HTMLInputElement>) => {setBoard({...board, title: e.target.value})}} />
                         <FormTextarea placeholder="내용" value={board?.content} onChange={(e:React.ChangeEvent<HTMLTextAreaElement>) => setBoard({...board, content: e.target.value })}/>
-                        <input type="file" accept="image/png, image/jpeg, image/jpg, image/gif" />
+                        <input type="file" accept="image/png, image/jpeg, image/jpg, image/gif" onChange={handleFile}/>
                         <FormButton type="submit">등록</FormButton>
                     </form>
                 </FormBox>
