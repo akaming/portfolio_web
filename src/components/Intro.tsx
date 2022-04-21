@@ -19,7 +19,7 @@ const Intro = (props: any) => {
                 <IntroTextBox>
                     <Text>
                         <span>Hello.</span>
-                        I'm Myungmin Lee <br/>
+                        I&apos;m Myungmin Lee <br/>
                         Web Front Developer
                     </Text>
                     <ModeButton onChange={onChangeHandler}/>

@@ -90,7 +90,7 @@ export default function Page({data}:any){
                     {
                         list?.map((data:PortfolioProps) => {
                             return (
-                                <ListWrap>
+                                <ListWrap key={data.id}>
                                     <List>
                                         <ListImg style={{backgroundImage:`url(${data.img})`}} />
                                         <ListTitle>{data.title}</ListTitle>
