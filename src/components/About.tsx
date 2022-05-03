@@ -29,6 +29,8 @@ const About = (props: any) => {
                                 <li>TypeScript</li>
                                 <li>Adonis.js</li>
                                 <li>Figma</li>
+                                <li>Photoshop</li>
+                                <li>Zeplin</li>
                             </ul>
                         </dd>
             
