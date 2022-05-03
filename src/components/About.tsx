@@ -37,7 +37,7 @@ const About = (props: any) => {
                         <dt>Company</dt>
                         <dd>
                             <ul>
-                                <li>2020.10 ~ </li>
+                                <li>2020.10 ~ freelancer</li>
                                 <li>2019.08 ~ 2020.08 SYSOFT</li>
                                 <li>2016.11 ~ 2018.04 GroupIDD</li>
                             </ul>
